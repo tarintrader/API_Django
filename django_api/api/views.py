@@ -41,7 +41,7 @@ def index(request):
     return HttpResponse(html_content)
 
 @api_view(['POST'])
-def add1(request):
+def Origen1(request):
     mapped_data = {
         'name': request.data.get('nombre'),
         'surnames': request.data.get('apellidos'),
@@ -59,10 +59,11 @@ def add1(request):
 
 
 @api_view(['POST'])
-def add2(request):
+def Origen2(request):
+    fechaNacimiento = request.data.get('fechaNacimiento')
     mapped_data = {
         'full_name': request.data.get('nombreCompleto'),
-        'birthdate': request.data.get('fechaNacimiento'),
+        'birthdate': '/'.join(reversed(fechaNacimiento.split('/'))),
         'amount': request.data.get('cantidadSolicitada')
     }
     serializer = Origen2Serializer(data=mapped_data)
