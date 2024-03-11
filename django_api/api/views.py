@@ -4,15 +4,16 @@ from rest_framework.decorators import api_view
 from .serializers import Origen1Serializer, Origen2Serializer
 
 
-# @api_view(['GET'])
-# def getData(request):
-#     items = Item.objects.all()
-#     serializer = ItemSerializer(items, many=True)
-#     return Response(serializer.data)
 
 @api_view(['POST'])
 def add1(request):
-    serializer = Origen1Serializer(data=request.data)
+    mapped_data = {
+        'name': request.data.get('nombre'),
+        'surnames': request.data.get('apellidos'),
+        'birthdate': request.data.get('fechaNacimiento'),
+        'amount': request.data.get('cantidad')
+    }
+    serializer = Origen1Serializer(data=mapped_data)
     if serializer.is_valid():
         full_name = f"{serializer.validated_data['name']} {serializer.validated_data['surnames']}"
         serializer.save(full_name=full_name)
@@ -21,13 +22,18 @@ def add1(request):
         print(serializer.errors)  # Print validation errors
         return Response(serializer.errors, status=400)
 
+
 @api_view(['POST'])
 def add2(request):
-    serializer = Origen2Serializer(data=request.data)
+    mapped_data = {
+        'full_name': request.data.get('nombreCompleto'),
+        'birthdate': request.data.get('fechaNacimiento'),
+        'amount': request.data.get('cantidadSolicitada')
+    }
+    serializer = Origen2Serializer(data=mapped_data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=201)
     else:
         print(serializer.errors)  # Print validation errors
         return Response(serializer.errors, status=400)
-

@@ -17,6 +17,7 @@ class CustomDateField(serializers.Field):
     def to_representation(self, value):
         return value.strftime('%d/%m/%Y')
 
+
 class Origen1Serializer(serializers.ModelSerializer):
     birthdate = CustomDateField()  # Use CustomDateField for birthdate
     full_name = serializers.CharField(source='get_full_name', read_only=True)  # Make full_name read-only
@@ -27,6 +28,7 @@ class Origen1Serializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+
 class Origen2Serializer(serializers.ModelSerializer):
     birthdate = CustomDateField()  # Use CustomDateField for birthdate
     origin = serializers.IntegerField(default=2)
@@ -34,4 +36,3 @@ class Origen2Serializer(serializers.ModelSerializer):
     class Meta:
         model = Origen1
         fields = ('full_name', 'birthdate', 'amount', 'origin')
-
