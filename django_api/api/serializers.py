@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from base.models import Origen1
+from base.models import LoanApplication
 from datetime import datetime
 
 
@@ -24,7 +24,7 @@ class Origen1Serializer(serializers.ModelSerializer):
     origin = serializers.IntegerField(default=1)
 
     class Meta:
-        model = Origen1
+        model = LoanApplication
         fields = '__all__'
 
 
@@ -34,5 +34,5 @@ class Origen2Serializer(serializers.ModelSerializer):
     origin = serializers.IntegerField(default=2)
 
     class Meta:
-        model = Origen1
+        model = LoanApplication
         fields = ('full_name', 'birthdate', 'amount', 'origin')
