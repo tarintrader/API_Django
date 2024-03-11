@@ -1,9 +1,44 @@
+from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 # from base.models import Item
 from .serializers import Origen1Serializer, Origen2Serializer
 
 
+def index(request):
+    html_content = """
+        <!DOCTYPE html>
+        <html lang="es">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>API Inicio</title>
+        </head>
+        <body>
+            <h1>Bienvenid@ a la API</h1>
+            <p>
+                La API Web recibe solicitudes de préstamo de distintos orígenes (Origen1 y Origen2).<br>
+                Las solicitudes vendrán dadas en formato JSON con distintas estructuras, las
+                cuales se normalizan y almacenan en una base de datos SQLite.
+            </p>
+            <h2>Estructuras de los JSON recibidos:</h2>
+            <h3><a href="/Origen1">Origen1</a></h3>
+            <ul>
+                <li><strong>nombre:</strong> Nombre de la persona solicitante</li>
+                <li><strong>apellidos:</strong> Apellidos de la persona solicitante, separados por un espacio</li>
+                <li><strong>fechaNacimiento:</strong> Fecha de nacimiento de la persona solicitante. En formato dd/MM/yyyy (27/02/2024, por ejemplo)</li>
+                <li><strong>cantidad:</strong> Cantidad solicitada para el préstamo</li>
+            </ul>
+            <h3><a href="/Origen2">Origen2</a></h3>
+            <ul>
+                <li><strong>nombreCompleto:</strong> Nombre y apellidos de la persona solicitante</li>
+                <li><strong>fechaNacimiento:</strong> Fecha de nacimiento de la persona solicitante. En formato yyyy/MM/dd (2024/02/27, por ejemplo)</li>
+                <li><strong>cantidadSolicitada:</strong> Cantidad solicitada para el préstamo</li>
+            </ul>
+        </body>
+        </html>
+        """
+    return HttpResponse(html_content)
 
 @api_view(['POST'])
 def add1(request):
